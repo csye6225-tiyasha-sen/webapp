@@ -1,6 +1,3 @@
-import app from "../app.js";
-import supertest from "supertest";
-import { isRouteIncluded } from "../middleware/middleware.js";
 import { expect } from "chai";
 
 describe("Test cases running", () => {
