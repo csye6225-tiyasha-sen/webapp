@@ -6,3 +6,12 @@ export const checkRoutes = (req, res, next) => {
   }
   return next();
 };
+
+export const checkReqMethods = (req, res, next) => {
+  //console.log(`${req.method}`);
+  if (req.method === "GET") {
+    next();
+  } else {
+    return res.status(405).send();
+  }
+};
