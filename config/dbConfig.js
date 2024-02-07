@@ -21,7 +21,7 @@ db.sequelize = sequelize;
 db.userModel = userModelFunction(sequelize, Sequelize);
 
 db.sequelize
-  .sync()
+  .sync({ alter: true })
   .then(() => {
     console.log("Resynchronizing done!");
   })
