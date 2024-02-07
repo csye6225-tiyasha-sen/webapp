@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 const User = db.userModel;
 
 export const userCreate = async (req, res) => {
+  res.header("Cache-Control", "no-cache");
   try {
     if (
       !req.body.first_name ||
@@ -71,8 +72,15 @@ export const userGetByUsername = async (req, res, next) => {
 };
 
 export const userUpdateByUsername = async (req, res, next) => {
-  if (!req.body.first_name || !req.body.last_name) {
-    return res.status(400).send();
+  if (!req.body.first_name || !req.body.last_name || !req.body.password) {
+    return res.status(400).send({
+      message: "Enter all the required fields!",
+    });
+  }
+  if (req.body.username) {
+    return res.status(400).send({
+      message: "Update of User Id is not allowed!",
+    });
   }
   try {
     const resultUpdate = await User.update(
@@ -84,7 +92,7 @@ export const userUpdateByUsername = async (req, res, next) => {
       { where: { username: req.user.username } }
     );
 
-    if (resultUpdate[0] >= 1) {
+    if (resultUpdate[0] > 0) {
       res.status(204).send();
     } else {
       res.status(400).send();
