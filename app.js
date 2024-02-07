@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(checkRoutes);
 app.use("/v1", userRoutes);
 
-app.use("/", checkReqMethods, routes);
+app.use("/healthz", checkReqMethods, routes);
 dotenv.config();
 
 export default app;
