@@ -9,6 +9,9 @@ export const userCreate = async (req, res) => {
   if (Object.keys(req.query).length != 0) {
     return res.status(400).end();
   }
+  if (req.body.id || req.body.account_created || req.body.account_updated) {
+    return res.status(400).send();
+  }
   res.header("Cache-Control", "no-cache");
   try {
     if (
@@ -60,7 +63,7 @@ export const userCreate = async (req, res) => {
 
 export const userGetByUsername = async (req, res, next) => {
   const userAttri = await getUsername(req.user.username);
-  if (Object.keys(req.query).length != 0) {
+  if (Object.keys(req.query).length != 0 || req.headers["content-length"] > 0) {
     return res.status(400).end();
   }
   if (userAttri) {
@@ -93,6 +96,10 @@ export const userUpdateByUsername = async (req, res, next) => {
         message: "Update of User Id is not allowed!",
       });
     }
+    if (req.body.id || req.body.account_created || req.body.account_updated) {
+      return res.status(400).send();
+    }
+
     const resultUpdate = await User.update(
       {
         first_name: req.body.first_name,
