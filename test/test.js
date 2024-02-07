@@ -2,7 +2,7 @@ import { expect } from "chai";
 
 describe("Test cases running", () => {
   it("Route test cases included", (done) => {
-    expect(1 + 0).to.equal(1);
+    expect(1 + 1).to.equal(2);
     done();
   });
 });
