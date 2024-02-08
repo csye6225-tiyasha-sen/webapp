@@ -1,22 +1,11 @@
 //const routesAllowed = ["/healthz", "/v1/user", "/v1/user/self"];
+import db from "../config/dbConfig.js";
 
 const routesAllowed = {
   "/healthz": ["GET"],
   "/v1/user": ["POST"],
   "/v1/user/self": ["PUT", "GET"],
 };
-// export const checkRoutes = (req, res, next) => {
-//   const allowedMethods = routesAllowed[req.path];
-//   if (!allowedMethods) {
-//     return res.status(404).end();
-//   }
-//   return next();
-// };
-
-// if (!routesAllowed(req.path).includes(req.method)) {
-//   return res.status(404).end();
-// }
-// return next();
 
 export const checkReqMethods = (req, res, next) => {
   //console.log(`${req.method}`);
@@ -42,4 +31,13 @@ export const checkReqMethodsForUser = (req, res, next) => {
   }
 
   return next();
+};
+
+export const checkDbConn = async (req, res, next) => {
+  try {
+    await db.sequelize.authenticate();
+    next();
+  } catch (err) {
+    return res.status(503).send();
+  }
 };

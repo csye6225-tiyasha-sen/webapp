@@ -5,7 +5,10 @@ import dotenv from "dotenv";
 //import { checkRoutes } from "./middleware/middleware.js";
 import userRoutes from "./routes/user-routes.js";
 import { checkReqMethods } from "./middleware/middleware.js";
-import { checkReqMethodsForUser } from "./middleware/middleware.js";
+import {
+  checkReqMethodsForUser,
+  checkDbConn,
+} from "./middleware/middleware.js";
 
 const app = express();
 
