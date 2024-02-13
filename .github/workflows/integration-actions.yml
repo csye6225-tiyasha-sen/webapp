@@ -6,6 +6,11 @@ jobs:
   integration-test:
     runs-on: ubuntu-latest
 
+    env:
+      PSQL_USERNAME: ${{ secrets.PSQL_USERNAME }}
+      PSQL_PASSWORD: ${{ secrets.PSQL_PASSWORD }}
+      PSQL_DATABASE: ${{ secrets.PSQL_DATABASE }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -20,8 +25,3 @@ jobs:
 
       - name: Run integration test cases
         run: npm run test
-
-        env:
-        PSQL_USERNAME=${{ secrets.PSQL_USERNAME }}
-        PSQL_PASSWORD=${{ secrets.PSQL_PASSWORD }}
-        PSQL_DATABASE=${{ secrets.PSQL_DATABASE }}
