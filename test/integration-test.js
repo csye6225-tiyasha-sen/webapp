@@ -8,7 +8,6 @@ before((done) => {
 });
 
 describe("Validate if account exists", function () {
-  // Test to create an account
   it("POST /v1/user - Create an account and respond with JSON", function (done) {
     request(app)
       .post("/v1/user")
@@ -16,7 +15,7 @@ describe("Validate if account exists", function () {
         first_name: "test",
         last_name: "Sen",
         password: "Tiyasha123",
-        username: "sen.testtt@northeastern.edu",
+        username: "sen.testtest@northeastern.edu",
       })
       .set("Accept", "application/json")
       .set("Content-Type", "application/json")
@@ -29,6 +28,33 @@ describe("Validate if account exists", function () {
   });
 
   it("GET /users/:id - Validate the created account exists", function (done) {
+    request(app)
+      .get("/v1/user/self")
+      .auth("sen.li@northeastern.edu", "Tiyasha123")
+      .expect(200, done);
+  });
+});
+
+describe("Validate if account exists", function () {
+  it("PUT /v1/user - Create an account and respond with JSON", function (done) {
+    request(app)
+      .put("/v1/user/self")
+      .send({
+        first_name: "testttt",
+        last_name: "Sen",
+        password: "Tiyasha123",
+      })
+      .set("Accept", "application/json")
+      .set("Content-Type", "application/json")
+      .auth("sen.li@northeastern.edu", "Tiyasha123")
+      .expect(204)
+      .end(function (err, res) {
+        if (err) return done(err);
+        return done();
+      });
+  });
+
+  it("GET /users/:id - Validate the account got updated", function (done) {
     request(app)
       .get("/v1/user/self")
       .auth("sen.li@northeastern.edu", "Tiyasha123")
