@@ -30,9 +30,9 @@ jobs:
           echo "PGPASSWORD=${{ secrets.DB_PASSWORD }}"
           sudo -u postgres psql -c "CREATE DATABASE PSQL_DATABASE;"
 
-      - name: Try to Connect to PostgreSQL
+      - name: Update PostgreSQL User Password
         run: |
-          psql -d "${{ secrets.PSQL_DATABASE }}" -U "${{ secrets.PSQL_USERNAME }}" -c 'SELECT 1;'
+          psql -h localhost -d "${{ secrets.PSQL_DATABASE }}" -U "${{ secrets.PSQL_USERNAME }}" -c "ALTER USER ${{ secrets.PSQL_USERNAME }} WITH PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
 
       - name: Run integration test cases
         run: npm run test
