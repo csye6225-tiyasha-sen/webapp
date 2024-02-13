@@ -28,11 +28,13 @@ jobs:
           sudo service postgresql start
           echo "PSQL_DATABASE: ${{ secrets.PSQL_DATABASE }}"
           echo "PGPASSWORD=${{ secrets.DB_PASSWORD }}"
-          sudo -u postgres psql -c "CREATE DATABASE PSQL_DATABASE;"
 
       - name: Update PostgreSQL User Password
         run: |
-          psql -U "${{ secrets.PSQL_USERNAME }}" -c "ALTER USER ${{ secrets.PSQL_USERNAME }} PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
+          sudo -u postgres psql -c "ALTER USER ${{ secrets.PSQL_USERNAME }} PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
+
+      - name: Create database
+        run: sudo -u postgres psql -c "CREATE DATABASE ${{secrets.PSQL_DATABASE}};"
 
       - name: Run integration test cases
         run: npm run test
