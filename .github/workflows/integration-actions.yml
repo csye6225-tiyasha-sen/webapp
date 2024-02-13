@@ -25,9 +25,8 @@ jobs:
 
       - name: Setup POSTGRESQL
         run: |
-          sudo service postgresql start
+          sudo systemctl start postgresql
           echo "PSQL_DATABASE: ${{ secrets.PSQL_DATABASE }}"
-          echo "PGPASSWORD=${{ secrets.DB_PASSWORD }}"
 
       - name: Update PostgreSQL User Password
         run: |
