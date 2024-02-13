@@ -27,7 +27,12 @@ jobs:
         run: |
           sudo service postgresql start
           echo "PSQL_DATABASE: ${{ secrets.PSQL_DATABASE }}"
+          echo "PGPASSWORD=${{ secrets.DB_PASSWORD }}"
           sudo -u postgres psql -c "CREATE DATABASE PSQL_DATABASE;"
+
+      - name: Try to Connect to PostgreSQL
+        run: |
+          psql -d "${{ secrets.PSQL_DATABASE }}" -U "${{ secrets.PSQL_USERNAME }}" -c 'SELECT 1;'
 
       - name: Run integration test cases
         run: npm run test
