@@ -25,7 +25,6 @@ jobs:
 
       - name: Setup POSTGRESQL
         run: |
-          sudo apt-get install -y postgresql
           sudo service postgresql start
           echo "PSQL_DATABASE: ${{ secrets.PSQL_DATABASE }}"
           sudo -u postgres psql -c "CREATE DATABASE PSQL_DATABASE;"
