@@ -4,7 +4,7 @@ on:
 
 jobs:
   integration-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     env:
       PSQL_USERNAME: ${{ secrets.PSQL_USERNAME }}
@@ -33,7 +33,7 @@ jobs:
           sudo -u postgres psql -c "ALTER USER ${{ secrets.PSQL_USERNAME }} PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
 
       - name: Create database
-        run: chmod -R 755 sudo -u postgres psql -c "CREATE DATABASE ${{secrets.PSQL_DATABASE}};"
+        run: sudo -u postgres psql -c "CREATE DATABASE ${{secrets.PSQL_DATABASE}};"
 
       - name: Run integration test cases
         run: npm run test
