@@ -25,7 +25,7 @@ jobs:
 
       - name: Setup POSTGRESQL
         run: |
-          sudo systemctl start postgresql
+          sudo systemctl start postgresql.service
           echo "PSQL_DATABASE: ${{ secrets.PSQL_DATABASE }}"
 
       - name: Update PostgreSQL User Password
@@ -33,7 +33,7 @@ jobs:
           sudo -u postgres psql -c "ALTER USER ${{ secrets.PSQL_USERNAME }} PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
 
       - name: Create database
-        run: sudo -u postgres psql -c "CREATE DATABASE ${{secrets.PSQL_DATABASE}};"
+        run: chmod -R 755 sudo -u postgres psql -c "CREATE DATABASE ${{secrets.PSQL_DATABASE}};"
 
       - name: Run integration test cases
         run: npm run test
