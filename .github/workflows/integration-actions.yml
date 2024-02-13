@@ -32,7 +32,7 @@ jobs:
 
       - name: Update PostgreSQL User Password
         run: |
-          psql -h localhost -d "${{ secrets.PSQL_DATABASE }}" -U "${{ secrets.PSQL_USERNAME }}" -c "ALTER USER ${{ secrets.PSQL_USERNAME }} WITH PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
+          psql -d "${{ secrets.PSQL_DATABASE }}" -U "${{ secrets.PSQL_USERNAME }}" -c "ALTER USER ${{ secrets.PSQL_USERNAME }} PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
 
       - name: Run integration test cases
         run: npm run test
