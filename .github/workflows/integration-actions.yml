@@ -1,10 +1,9 @@
 name: github-actions
 on:
-  push_request:
+  push:
 
 jobs:
-  build:
-  integration-test
+  integration-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,4 +22,3 @@ jobs:
         run: npm run test
 
         env:
-        
