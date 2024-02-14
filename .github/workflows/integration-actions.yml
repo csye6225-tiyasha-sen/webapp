@@ -1,4 +1,4 @@
-name: github-actions
+name: integration-github-actions
 on:
   pull_request:
     branches: [main]
