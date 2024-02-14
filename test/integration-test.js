@@ -15,7 +15,6 @@ describe("Validate if account exists", function () {
         first_name: "test",
         last_name: "Sen",
         password: "Tiyasha123",
-        username: "ti.sen@northeastern.edu",
       })
       .set("Accept", "application/json")
       .set("Content-Type", "application/json")
