@@ -37,4 +37,4 @@ jobs:
         run: sudo -u postgres psql -c "CREATE DATABASE ${{secrets.PSQL_DATABASE}};"
 
       - name: Run integration test cases
-        run: npm run test
+        run: npm run integration-test
