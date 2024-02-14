@@ -15,7 +15,7 @@ describe("Validate if account exists", function () {
         first_name: "test",
         last_name: "Sen",
         password: "Tiyasha123",
-        username: "sen.testtest@northeastern.edu",
+        username: "sen.testtesttt@northeastern.edu",
       })
       .set("Accept", "application/json")
       .set("Content-Type", "application/json")
@@ -57,7 +57,7 @@ describe("Validate if account exists", function () {
   it("GET /users/:id - Validate the account got updated", function (done) {
     request(app)
       .get("/v1/user/self")
-      .auth("sen.li@northeastern.edu", "Tiyasha123")
+      .auth("sen.testtesttt@northeastern.edu", "Tiyasha123")
       .expect(200, done);
   });
 });
