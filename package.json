@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "integration-test": "mocha --exit test/integration-test.js",
-    "test-file": "test/test.js"
+    "test-file": "mocha --exit test/test.js"
   },
   "author": "",
   "license": "ISC",
