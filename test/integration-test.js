@@ -15,7 +15,7 @@ describe("Validate if account exists", function () {
         first_name: "test",
         last_name: "Sen",
         password: "Tiyasha123",
-        username: "sen.testtesttt@northeastern.edu",
+        username: "ti.sen@northeastern.edu",
       })
       .set("Accept", "application/json")
       .set("Content-Type", "application/json")
@@ -30,7 +30,7 @@ describe("Validate if account exists", function () {
   it("GET /users/:id - Validate the created account exists", function (done) {
     request(app)
       .get("/v1/user/self")
-      .auth("sen.li@northeastern.edu", "Tiyasha123")
+      .auth("ti.sen@northeastern.edu", "Tiyasha123")
       .expect(200, done);
   });
 });
@@ -46,7 +46,7 @@ describe("Validate if account exists", function () {
       })
       .set("Accept", "application/json")
       .set("Content-Type", "application/json")
-      .auth("sen.li@northeastern.edu", "Tiyasha123")
+      .auth("ti.sen@northeastern.edu", "Tiyasha123")
       .expect(204)
       .end(function (err, res) {
         if (err) return done(err);
@@ -57,7 +57,7 @@ describe("Validate if account exists", function () {
   it("GET /users/:id - Validate the account got updated", function (done) {
     request(app)
       .get("/v1/user/self")
-      .auth("sen.testtesttt@northeastern.edu", "Tiyasha123")
+      .auth("ti.sen@northeastern.edu", "Tiyasha123")
       .expect(200, done);
   });
 });
