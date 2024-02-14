@@ -40,7 +40,7 @@ describe("Validate if account exists", function () {
     request(app)
       .put("/v1/user/self")
       .send({
-        first_name: "testttt",
+        first_name: "testt",
         last_name: "Sen",
         password: "Tiyasha123",
       })
