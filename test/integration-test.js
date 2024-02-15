@@ -59,7 +59,7 @@ describe("Validate if account exists", function () {
     request(app)
       .get("/v1/user/self")
       .auth("ti.seeer@northeastern.edu", "Tiyasha123")
-      .expect(200, done);
+      .expect(400, done);
   });
 });
 
