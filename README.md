@@ -31,4 +31,6 @@ The following steps to be performed to run the project:
 //Implemented Integration Tests for the below scenarios:
 
 1. To create an account and validating if the user account exists
-2.
+2. To update an account and validating if the user account gets updated
+
+To implemement this, an integration test class has been written and for the git workflow to run, one integration yml file has been added.
