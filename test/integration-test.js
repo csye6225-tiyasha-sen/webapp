@@ -20,7 +20,7 @@ describe("Validate if account exists", function () {
       .set("Accept", "application/json")
       .set("Content-Type", "application/json")
       //.expect("Content-Type", "text/html; charset=utf-8")
-      .expect(201)
+      .expect(400)
       .end(function (err, res) {
         if (err) return done(err);
         return done();
