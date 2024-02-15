@@ -27,3 +27,8 @@ The following steps to be performed to run the project:
 2. npm install
 3. Start with npm run start
 4. Run the test file with npm test
+
+//Implemented Integration Tests for the below scenarios:
+
+1. To create an account and validating if the user account exists
+2.
