@@ -1,0 +1,29 @@
+name: github-actions
+on:
+  push:
+
+jobs:
+  packer-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup `packer`
+        uses: hashicorp/setup-packer@main
+        id: setup
+        with:
+          version: 1.10.1
+
+      - name: Run `packer init`
+        id: init
+        run: "packer init ./image.pkr.hcl"
+
+      - name: zip the project & copy to repo
+        run: cd ../ && zip -r webapp.zip webapp && cd - && cp ../webapp.zip .
+
+      - name: Authenticate with GCP
+        uses: google-github-actions/auth@main
+        with:
+        credentials: ${{ secrets.GCP_SA_KEY }}
