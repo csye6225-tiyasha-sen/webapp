@@ -1,0 +1,32 @@
+name: github-actions
+on:
+  push:
+
+jobs:
+  packer-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: zip the project & copy to repo
+        run: cd ../ && zip -r webapp.zip webapp && cd - && cp ../webapp.zip .
+
+      - name: Setup `packer`
+        uses: hashicorp/setup-packer@main
+        id: setup
+        with:
+          version: 1.10.1
+
+      - name: Run `packer init`
+        id: init
+        run: "packer init ./gcp.pkr.hcl"
+
+       - name: Run `packer fmt`
+        id: fmt
+        run: packer fmt -check -diff ./gcp.pkr.hcl
+
+      - name: Run `packer validate`
+        id: validate
+        run: "packer validate ./gcp.pkr.hcl"

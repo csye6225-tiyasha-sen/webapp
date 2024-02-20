@@ -3,6 +3,6 @@
 mkdir webapp
 
 
-unzip /tmp/webapp-fork.zip -d ~/webapp
-cd ~/webapp/webapp-fork
+unzip /tmp/webapp.zip -d ~/webapp
+cd ~/webapp/webapp
 npm install
