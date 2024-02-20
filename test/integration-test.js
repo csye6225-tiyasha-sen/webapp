@@ -29,12 +29,12 @@ describe("Validate if account exists", function () {
   });
 
   //Comments for review today
-  
+
   it("GET /v1/user/self - Validate the created account exists", function (done) {
     request(app)
       .get("/v1/user/self")
       .auth("ti.seeer@northeastern.edu", "Ti123")
-      .expect(400, done);
+      .expect(200, done);
   });
 });
 

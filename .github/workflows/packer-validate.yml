@@ -23,7 +23,7 @@ jobs:
         id: init
         run: "packer init ./gcp.pkr.hcl"
 
-       - name: Run `packer fmt`
+      - name: Run `packer fmt`
         id: fmt
         run: packer fmt -check -diff ./gcp.pkr.hcl
 
