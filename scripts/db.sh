@@ -6,21 +6,24 @@ sudo dnf install postgresql-server -y
 sudo postgresql-setup --initdb
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
-
-
-To create a db:
----vi create-db.sh
-# Load environment variables from .env file
-source .env
-# Set PostgreSQL connection parameters
-export PGUSER=$PSQL_USERNAME
-export PGPASSWORD=$PSQL_PASSWORD
-# Create the database
-createdb $PSQL_DATABASE
-echo "Database '$PSQL_DATABASE' created successfully."
-
 echo "Changing authentication method in pg_hba.conf..."
+PG_HBA_CONTENT="\
+# PostgreSQL Host-Based Authentication Configuration
+# TYPE      DATABASE            USER                ADDRESS              METHOD
+host          all              all                  127.0.0.1/32          trust
+local         all              all                                        trust
+host          all              all                  ::1/128               trust
+"
 
-echo "Authentication method changed."
+sudo cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
+echo "$PG_HBA_CONTENT" | sudo tee /var/lib/pgsql/data/pg_hba.conf > /dev/null
+sudo systemctl restart postgresql
 
+
+# Load environment variables from .env file
+
+#alter script
 sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
+# Create the database
+sudo -u postgres psql -c "CREATE DATABASE tisen;"
+echo "Database created successfully."

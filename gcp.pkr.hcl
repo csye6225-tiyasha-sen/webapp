@@ -20,7 +20,12 @@ build {
   sources = ["sources.googlecompute.sharedvpc-example"]
 
   provisioner "file"{
-     source= "./scripts/webapp-fork.zip"
+     source= "./scripts/webapp.zip"
+     destination= "/tmp/"
+  }
+
+  provisioner "file"{
+     source= "./scripts/webappdev.service"
      destination= "/tmp/"
   }
 
@@ -30,6 +35,7 @@ build {
       "scripts/install.sh",
       "scripts/db.sh",
       "scripts/zipunzip.sh",
+      "scripts/systemd.sh"
     ]
     pause_before = "10s"
     timeout      = "10s"
