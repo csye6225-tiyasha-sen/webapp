@@ -1,6 +1,9 @@
 name: packer-actions
 on:
-  pull_request:
+  workflow_run:
+    workflows: ["packer-validate"]
+      types:
+      - completed
 
 jobs:
   packer-build:
