@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: zip the project & copy to repo
+      - name: Copy to repository after zip
         run: cd .. && zip -r webapp.zip webapp && cp webapp.zip webapp/scripts/webapp.zip && cd webapp
 
       - name: Setup `packer`
