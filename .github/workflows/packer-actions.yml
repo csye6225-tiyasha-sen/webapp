@@ -3,10 +3,10 @@ on:
   pull_request:
     types:
       - closed
-env:
-  PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
-  PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
-  PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
+# env:
+#   PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
+#   PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
+#   PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
 
 jobs:
   packer-build:
