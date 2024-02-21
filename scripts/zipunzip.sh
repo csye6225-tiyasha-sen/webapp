@@ -3,6 +3,6 @@
 mkdir webapp
 
 
-unzip /tmp/webapp.zip -d ~/webapp
-cd ~/webapp/webapp
+unzip /tmp/webapp.zip -d ~/
+cd ~/webapp
 npm install
