@@ -41,4 +41,4 @@ jobs:
         run: packer init ./gcp.pkr.hcl
 
       - name: Packer build
-        run: packer build ./gcp.pkr.hcl
+        run: packer build --var "dbuser=$PSQL_USERNAME" --var "dbpassword=$PSQL_PASSWORD" --var "dbdatabase=$PSQL_DATABASE" ./gcp.pkr.hcl
