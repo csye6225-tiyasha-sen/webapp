@@ -14,10 +14,10 @@ jobs:
         run: cd .. && zip -r webapp.zip webapp && cp webapp.zip webapp/scripts/webapp.zip && cd webapp
 
       - name: Setup `packer`
-        uses: hashicorp/setup-packer@main
+        uses: hashicorp/setup-packer@
         id: setup
         with:
-          version: 1.10.1
+          version: "1.10.1"
 
       - name: Run `packer init`
         id: init

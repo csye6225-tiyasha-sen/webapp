@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: zip the project & copy to repo
-        run: cd ../ && zip -r webapp.zip webapp && cd - && cp ../webapp.zip .
+        run: cd .. && zip -r webapp.zip webapp && cp webapp.zip webapp/scripts/webapp.zip && cd webapp
 
       - name: Authenticate with GCP
         id: "auth"
@@ -23,7 +23,7 @@ jobs:
         uses: hashicorp/setup-packer@main
         id: setup
         with:
-          version: 1.10.1
+          version: "1.10.1"
 
       - name: Run `packer init`
         id: init
