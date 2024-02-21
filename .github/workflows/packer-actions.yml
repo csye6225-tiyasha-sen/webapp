@@ -1,6 +1,6 @@
 name: packer-actions
 on:
-  push:
+  pull_request:
 
 jobs:
   packer-build:
