@@ -10,6 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: zip the project & copy to repo
+        run: cd ../ && zip -r webapp.zip webapp && cd - && cp ../webapp.zip .
+
       - name: Authenticate with GCP
         id: "auth"
         uses: google-github-actions/auth@v2
@@ -24,7 +27,7 @@ jobs:
 
       - name: Run `packer init`
         id: init
-        run: "packer init ./gcp.pkr.hcl"
+        run: packer init ./gcp.pkr.hcl
 
-      - name: zip the project & copy to repo
-        run: cd ../ && zip -r webapp.zip webapp && cd - && cp ../webapp.zip .
+      - name: Packer build
+        run: packer build ./gcp.pkr.hcl
