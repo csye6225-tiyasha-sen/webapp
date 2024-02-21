@@ -11,10 +11,6 @@ env:
 jobs:
   packer-build:
     runs-on: ubuntu-latest
-    env:
-      PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
-      PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
-      PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
 
     if: ${{github.event.pull_request.merged==true}}
     steps:
