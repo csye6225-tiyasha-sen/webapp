@@ -6,6 +6,22 @@ packer {
     }
   }
 }
+
+variable "dbuser" {
+  type    = string
+  default = env("PSQL_USERNAME")
+}
+
+variable "dbpassword" {
+  type    = string
+  default = env("PSQL_PASSWORD")
+}
+
+variable "dbdatabase" {
+  type    = string
+  default = env("PSQL_DATABASE")
+}
+
 source "googlecompute" "sharedvpc-example" {
   project_id          = "csye-6225-dev-414704"
   source_image_family = "centos-stream-8"
