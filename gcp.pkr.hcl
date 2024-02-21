@@ -19,14 +19,14 @@ source "googlecompute" "sharedvpc-example" {
 build {
   sources = ["sources.googlecompute.sharedvpc-example"]
 
-  provisioner "file"{
-     source= "./scripts/webapp.zip"
-     destination= "/tmp/"
+  provisioner "file" {
+    source      = "./scripts/webapp.zip"
+    destination = "/tmp/"
   }
 
-  provisioner "file"{
-     source= "./scripts/webappdev.service"
-     destination= "/tmp/"
+  provisioner "file" {
+    source      = "./scripts/webappdev.service"
+    destination = "/tmp/"
   }
 
   provisioner "shell" {
