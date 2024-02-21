@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Authenticate with GCP
-        uses: google-github-actions/auth@main
+        uses: google-github-actions/auth@v4
         with:
           credentials: ${{ secrets.GCP_SA_KEY }}
 
