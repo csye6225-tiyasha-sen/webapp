@@ -35,7 +35,10 @@ jobs:
       - name: Run `packer validate`
         id: validate
         env:
-         PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
-         PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
-         PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
-        run: "packer validate --var "dbuser=$PSQL_USERNAME" --var "dbpassword=$PSQL_PASSWORD" --var "dbdatabase=$PSQL_DATABASE" ./gcp.pkr.hcl"
+          PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
+          PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
+          PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
+        run: >-
+          packer build --var "dbuser=$PSQL_USERNAME" --var
+          "dbpassword=$PSQL_PASSWORD" --var "dbdatabase=$PSQL_DATABASE"
+          ./gcp.pkr.hcl
