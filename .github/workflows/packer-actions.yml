@@ -3,7 +3,10 @@ on:
   pull_request:
     types:
       - closed
-
+env: 
+  dbuser: '${{secrets.PSQL_USERNAME}}',
+  dbpassword: '${{secrets.PSQL_PASSWORD}}',
+  dbdatabase: '${{secrets.PSQL_DATABASE}}',
 jobs:
   packer-build:
     runs-on: ubuntu-latest
