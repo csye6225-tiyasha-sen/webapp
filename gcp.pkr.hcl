@@ -56,7 +56,7 @@ build {
     environment_vars = [
       "PSQL_USER=${var.dbuser}",
       "PSQL_PASSWORD=${var.dbpassword}",
-      "PSQL_DATABASE=${var.dbdatabase}",
+      "PSQL_DATABASE=${var.dbdatabase}"
     ]
     pause_before = "10s"
     timeout      = "10s"
