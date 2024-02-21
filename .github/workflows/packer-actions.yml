@@ -1,14 +1,14 @@
 name: packer-actions
 on:
-  workflow_run:
-    workflows: ["packer-actions-validate"]
-      types:
-      - completed
+  pull_request:
+    types:
+      - closed
 
 jobs:
   packer-build:
     runs-on: ubuntu-latest
 
+    if: ${{github.event.pull_request.merged==true}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
