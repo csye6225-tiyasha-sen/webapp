@@ -33,4 +33,4 @@ jobs:
 
       - name: Run `packer validate`
         id: validate
-        run: "packer validate --var "dbuser=$PSQL_USERNAME" --var "dbpassword=$PSQL_PASSWORD" --var "dbdatabase=$PSQL_DATABASE" ./gcp.pkr.hcl"
+        run: "packer validate ./gcp.pkr.hcl"
