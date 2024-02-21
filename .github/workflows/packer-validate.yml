@@ -3,9 +3,9 @@ on:
   pull_request:
 
 env:
-  dbuser: "${{secrets.PSQL_USERNAME}}"
-  dbpassword: "${{secrets.PSQL_PASSWORD}}"
-  dbdatabase: "${{secrets.PSQL_DATABASE}}"
+  PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
+  PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
+  PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
 
 jobs:
   packer-validate:
