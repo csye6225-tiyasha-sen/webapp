@@ -2,7 +2,7 @@ name: packer-actions
 on:
   workflow_run:
     workflows: ["packer-actions-validate"]
-      types:
+    types:
       - completed
 
 jobs:
