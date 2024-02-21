@@ -2,6 +2,11 @@ name: packer-actions-validate
 on:
   pull_request:
 
+env: 
+  dbuser: '${{secrets.PSQL_USERNAME}}',
+  dbpassword: '${{secrets.PSQL_PASSWORD}}',
+  dbdatabase: '${{secrets.PSQL_DATABASE}}',
+
 jobs:
   packer-validate:
     runs-on: ubuntu-latest
