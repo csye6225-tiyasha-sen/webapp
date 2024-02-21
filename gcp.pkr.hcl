@@ -37,7 +37,7 @@ build {
       "scripts/zipunzip.sh",
       "scripts/systemd.sh"
     ]
-    environment_vars=[
+    environment_vars = [
       "PSQL_USER=${var.dbuser}",
       "PSQL_PASSWORD=${var.dbpassword}",
       "PSQL_DATABASE=${var.dbdatabase}",
