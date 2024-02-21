@@ -10,10 +10,6 @@ env:
 jobs:
   packer-validate:
     runs-on: ubuntu-latest
-    env:
-      PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
-      PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
-      PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
