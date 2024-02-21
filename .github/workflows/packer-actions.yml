@@ -1,4 +1,4 @@
-name: github-actions
+name: packer-actions
 on:
   push:
 
@@ -13,7 +13,7 @@ jobs:
       - name: Authenticate with GCP
         uses: google-github-actions/auth@main
         with:
-        credentials: ${{ secrets.GCP_SA_KEY }}
+          credentials: ${{ secrets.GCP_SA_KEY }}
 
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main
