@@ -24,12 +24,6 @@ jobs:
         with:
           version: "1.10.1"
 
-      - name: Authenticate with GCP
-        id: "auth"
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: "${{ secrets.GCP_SA_KEY }}"
-
       - name: Run `packer init`
         id: init
         run: "packer init ./gcp.pkr.hcl"
@@ -44,7 +38,4 @@ jobs:
           PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
           PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
           PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
-        run: >-
-          packer validate --var "dbuser=$PSQL_USERNAME" --var
-          "dbpassword=$PSQL_PASSWORD" --var "dbdatabase=$PSQL_DATABASE"
-          ./gcp.pkr.hcl
+        run: packer validate ./gcp.pkr.hcl
