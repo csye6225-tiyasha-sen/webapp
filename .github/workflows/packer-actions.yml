@@ -3,10 +3,6 @@ on:
   pull_request:
     types:
       - closed
-# env:
-#   PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
-#   PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
-#   PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
 
 jobs:
   packer-build:
@@ -37,8 +33,4 @@ jobs:
         run: packer init ./gcp.pkr.hcl
 
       - name: Packer build
-        env:
-          PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
-          PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
-          PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
         run: packer build ./gcp.pkr.hcl

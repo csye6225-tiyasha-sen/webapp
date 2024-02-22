@@ -7,21 +7,6 @@ packer {
   }
 }
 
-variable "dbuser" {
-  type    = string
-  default = env("PSQL_USERNAME")
-}
-
-variable "dbpassword" {
-  type    = string
-  default = env("PSQL_PASSWORD")
-}
-
-variable "dbdatabase" {
-  type    = string
-  default = env("PSQL_DATABASE")
-}
-
 source "googlecompute" "sharedvpc-example" {
   image_name          = "image-dev"
   project_id          = "csye-6225-dev-414704"
@@ -53,11 +38,6 @@ build {
       "scripts/db.sh",
       "scripts/zipunzip.sh",
       "scripts/systemd.sh"
-    ]
-    environment_vars = [
-      "PSQL_USER=${var.dbuser}",
-      "PSQL_PASSWORD=${var.dbpassword}",
-      "PSQL_DATABASE=${var.dbdatabase}"
     ]
     pause_before = "10s"
     timeout      = "10s"
