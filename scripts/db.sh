@@ -23,6 +23,7 @@ sudo systemctl restart postgresql
 # Load environment variables from .env file
 echo "Alter: USER:$PSQL_USER PASSWORD:$PSQL_PASSWORD DB:$PSQL_DATABASE"
 #alter script
+sudo -u postgres psql -c "CREATE USER $PSQL_USER WITH PASSWORD '$PSQL_PASSWORD';"
 sudo -u postgres psql -c "ALTER USER $PSQL_USER PASSWORD '$PSQL_PASSWORD';"
 # Create the database
 sudo -u postgres psql -c "CREATE DATABASE $PSQL_DATABASE;"
