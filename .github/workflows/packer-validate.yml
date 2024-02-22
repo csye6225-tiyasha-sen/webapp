@@ -34,8 +34,4 @@ jobs:
 
       - name: Run `packer validate`
         id: validate
-        env:
-          PSQL_USERNAME: "${{secrets.PSQL_USERNAME}}"
-          PSQL_PASSWORD: "${{secrets.PSQL_PASSWORD}}"
-          PSQL_DATABASE: "${{secrets.PSQL_DATABASE}}"
         run: packer validate ./gcp.pkr.hcl
