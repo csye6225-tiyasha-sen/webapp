@@ -31,6 +31,7 @@ jobs:
 
       - name: Update PostgreSQL User Password
         run: |
+          sudo -u postgres psql -c "CREATE USER ${{ secrets.PSQL_USERNAME }} WITH PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
           sudo -u postgres psql -c "ALTER USER ${{ secrets.PSQL_USERNAME }} PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
 
       - name: Create database
