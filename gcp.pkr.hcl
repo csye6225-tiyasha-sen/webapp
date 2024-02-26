@@ -3,7 +3,6 @@ packer {
     googlecompute = {
       source  = "github.com/hashicorp/googlecompute"
       version = "~> 1"
-      
     }
   }
 }
