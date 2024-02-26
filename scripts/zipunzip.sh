@@ -1,8 +1,8 @@
 #!/bin/bash
 
-unzip /tmp/webapp.zip -d /opt/
+sudo unzip /tmp/webapp.zip -d /opt/
 cd /opt/webapp
 
 
-npm install
+sudo npm install
 
