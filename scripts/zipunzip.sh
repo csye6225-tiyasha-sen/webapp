@@ -1,7 +1,7 @@
 #!/bin/bash
 
-unzip /tmp/webapp.zip -d ~/
-cd ~/webapp
+unzip /tmp/webapp.zip -d /opt/
+cd /opt/webapp
 
 
 npm install

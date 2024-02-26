@@ -4,10 +4,10 @@ After=network.target
 
 [Service]
 Type=simple
-User=tiyashasen_net
-Group=tiyashasen_net
-WorkingDirectory=/home/tiyashasen_net/
-ExecStart=/home/tiyashasen_net/.nvm/versions/node/v21.6.1/bin/node /home/tiyashasen_net/webapp/index.js
+User=csye6225
+Group=csye6225
+WorkingDirectory=/opt/webapp
+ExecStart=/usr/bin/node /opt/webapp/index.js
 Restart=always
 RestartSec=3
 StandardOutput=syslog
