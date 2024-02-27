@@ -1,3 +1,3 @@
 #!/bin/bash
 # Yum install
-sudo yum install unzip -y
+sudo dnf install unzip -y

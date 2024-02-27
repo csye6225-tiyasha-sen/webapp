@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # Install and configure nvm
-sudo yum install -y nodejs
+sudo dnf install -y nodejs
 node --version
 npm --version
