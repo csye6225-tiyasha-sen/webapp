@@ -35,7 +35,6 @@ build {
     scripts = [
       "scripts/load.sh",
       "scripts/install.sh",
-      "scripts/db.sh",
       "scripts/zipunzip.sh",
       "scripts/systemd.sh"
     ]
