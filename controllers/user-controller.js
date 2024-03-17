@@ -1,6 +1,8 @@
 import { v1 as uuidv1 } from "uuid";
 import db from "../config/dbConfig.js";
 //import { checkRoutes } from "./middleware/middleware.js";
+//import { Logger } from "node-json-logger";
+//const logger = new Logger();
 
 import bcrypt from "bcrypt";
 const User = db.userModel;
@@ -55,8 +57,9 @@ export const userCreate = async (req, res) => {
     };
     //const userr = await User.create(info);
     res.status(201).send(userData);
+    logger.info("User created successfully!");
   } catch (err) {
-    console.error(err);
+    logger.error("Invalid request body");
     res.status(400).send();
   }
 };
@@ -67,6 +70,7 @@ export const userGetByUsername = async (req, res, next) => {
     return res.status(400).end();
   }
   if (userAttri) {
+    logger.info("User updated successfully!");
     res.status(200).send({
       id: userAttri.dataValues.id,
       first_name: userAttri.dataValues.first_name,
@@ -85,6 +89,7 @@ export const userUpdateByUsername = async (req, res, next) => {
     return res.status(400).end();
   }
   if (!req.body.first_name || !req.body.last_name || !req.body.password) {
+    logger.error("Invalid request body");
     return res.status(400).send({
       message: "Enter all the required fields!",
     });

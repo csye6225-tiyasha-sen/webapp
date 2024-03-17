@@ -16,6 +16,7 @@ source "googlecompute" "sharedvpc-example" {
   ssh_username        = "tiyashasen_net"
   zone                = "us-central1-a"
   image_licenses      = ["projects/vm-options/global/licenses/enable-vmx"]
+  machine_type        = "custom-4-4096"
 }
 
 build {
@@ -36,6 +37,7 @@ build {
       "scripts/load.sh",
       "scripts/install.sh",
       "scripts/zipunzip.sh",
+      "scripts/installopsagent.sh",
       "scripts/systemd.sh"
     ]
     pause_before = "10s"

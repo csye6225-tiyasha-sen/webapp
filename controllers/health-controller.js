@@ -1,4 +1,6 @@
 import db from "../config/dbConfig.js";
+import logger from "../config/logger.js";
+//const logger = new Logger();
 
 export const health = {
   async checkDatabaseConnection(req, res) {
@@ -12,9 +14,11 @@ export const health = {
     }
     try {
       await db.sequelize.authenticate();
+      logger.info("database authenticated!");
       res.status(200).end();
     } catch (error) {
       res.status(503).end();
+      logger.error("Error in connecting database!");
       //console.error(`errors: ${error}`);
     }
   },
