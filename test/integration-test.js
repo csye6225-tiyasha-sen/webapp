@@ -9,7 +9,7 @@ before((done) => {
 });
 
 describe("Validate if account exists", function () {
-  it("POST /v1/user - Create an account and respond with JSON", function (done) {
+  it("POST /v1/user - Create an account and respond with JSON", function () {
     request(app)
       .post("/v1/user")
       .send({
@@ -21,30 +21,21 @@ describe("Validate if account exists", function () {
       .set("Accept", "application/json")
       .set("Content-Type", "application/json")
       //.expect("Content-Type", "text/html; charset=utf-8")
-      .expect(201)
-      .end(function (err, res) {
-        if (err) return done(err);
-        return done();
-      });
+      .expect(201);
   });
 
   //Comments for review today
 
-  it("GET /v1/user/self - Validate the created account exists", function (done) {
+  it("GET /v1/user/self - Validate the created account exists", function () {
     request(app)
       .get("/v1/user/self")
       .auth("ti.seeer@northeastern.edu", "Ti123")
-      .expect(200)
-      .end(function (err, res) {
-        if (err) return done(err);
-        done();
-      })
-      .timeout(10000);
+      .expect(200);
   });
 });
 
 describe("Validate if account exists", function () {
-  it("PUT /v1/user - Create an account and respond with JSON", function (done) {
+  it("PUT /v1/user - Create an account and respond with JSON", function () {
     request(app)
       .put("/v1/user/self")
       .send({
@@ -55,23 +46,14 @@ describe("Validate if account exists", function () {
       .set("Accept", "application/json")
       .set("Content-Type", "application/json")
       .auth("ti.seeer@northeastern.edu", "Ti123")
-      .expect(204)
-      .end(function (err, res) {
-        if (err) return done(err);
-        return done();
-      });
+      .expect(204);
   });
 
-  it("GET /v1/user/self - Validate the account got updated", function (done) {
+  it("GET /v1/user/self - Validate the account got updated", function () {
     request(app)
       .get("/v1/user/self")
       .auth("ti.seeer@northeastern.edu", "Tiyasha123")
-      .expect(200)
-      .end(function (err, res) {
-        if (err) return done(err);
-        done();
-      })
-      .timeout(10000);
+      .expect(200);
   });
 });
 
