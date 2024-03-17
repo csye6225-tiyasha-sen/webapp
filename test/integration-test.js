@@ -34,7 +34,11 @@ describe("Validate if account exists", function () {
     request(app)
       .get("/v1/user/self")
       .auth("ti.seeer@northeastern.edu", "Ti123")
-      .expect(200, done);
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err);
+        done();
+      });
   });
 });
 
@@ -61,7 +65,11 @@ describe("Validate if account exists", function () {
     request(app)
       .get("/v1/user/self")
       .auth("ti.seeer@northeastern.edu", "Tiyasha123")
-      .expect(200, done);
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err);
+        done();
+      });
   });
 });
 
