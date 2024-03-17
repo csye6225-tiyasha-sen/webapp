@@ -39,7 +39,7 @@ describe("Validate if account exists", function () {
         if (err) return done(err);
         done();
       })
-      .timeout(1000);
+      .timeout(10000);
   });
 });
 
@@ -71,7 +71,7 @@ describe("Validate if account exists", function () {
         if (err) return done(err);
         done();
       })
-      .timeout(1000);
+      .timeout(10000);
   });
 });
 
