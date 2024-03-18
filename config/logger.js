@@ -20,7 +20,7 @@ const logger = createLogger({
   ),
   transports: [
     new winston.transports.File({
-      filename: appRoot + "/logs/csye6225.log",
+      filename: "/var/log/webapp/myapp.log",
     }),
     new transports.Console(),
   ],
