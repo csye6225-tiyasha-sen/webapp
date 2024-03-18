@@ -10,7 +10,7 @@ const customFormat = printf(({ level, message, label, timestamp }) => {
 });
 
 const logger = createLogger({
-  level: "info",
+  level: "debug",
   format: combine(
     label({ label: CATEGORY }),
     format.timestamp({
