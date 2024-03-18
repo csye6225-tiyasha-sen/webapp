@@ -56,8 +56,8 @@ export const userCreate = async (req, res) => {
       account_updated: userRes.account_updated,
     };
     //const userr = await User.create(info);
-    res.status(201).send(userData);
     logger.info("User created successfully!");
+    res.status(201).send(userData);
   } catch (err) {
     logger.error("Invalid request body");
     res.status(400).send();
