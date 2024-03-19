@@ -59,7 +59,7 @@ export const userCreate = async (req, res) => {
     logger.info("User created successfully!");
     res.status(201).send(userData);
   } catch (err) {
-    logger.error("Invalid request body");
+    logger.error(err.message);
     res.status(400).send();
   }
 };
