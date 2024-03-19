@@ -14,7 +14,7 @@ source "googlecompute" "sharedvpc-example" {
   subnetwork          = "default"
   network_project_id  = "csye-6225-dev-414704"
   ssh_username        = "tiyashasen_net"
-  zone                = "us-east1-b"
+  zone                = "us-east1-c"
   image_licenses      = ["projects/vm-options/global/licenses/enable-vmx"]
   machine_type        = "custom-4-4096"
 }
