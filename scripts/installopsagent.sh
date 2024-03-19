@@ -4,7 +4,7 @@ sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 
 
 #Ops Agent configuration
-CONFIG_CONTENT="
+CONFIG_CONTENT=$(cat <<EOF
 logging:
   receivers:
     my-app-receiver:
@@ -16,22 +16,23 @@ logging:
     my-app-processors:
       type: parse_json
       time_key: time
-      time_format: \"%Y-%m-%dT%H:%M:%S.%L\"
+      time_format: "%Y-%m-%dT%H:%M:%S.%L"
     move_level_severity:
       type: modify_fields
       fields:
         severity:
           move_from: jsonPayload.level
           map_values:
-            \"debug\":\"DEBUG\"
-            \"info\":\"INFO\"
-            \"warn\":\"WARN\"            
+            "debug": "DEBUG"
+            "info": "INFO"
+            "warn": "WARN"            
   service:
     pipelines:
       default_pipeline:
         receivers: [my-app-receiver]
         processors: [my-app-processors, move_level_severity]
-"
+EOF
+)
 
 CONFIG_FILE="/etc/google-cloud-ops-agent/config.yaml"
 
