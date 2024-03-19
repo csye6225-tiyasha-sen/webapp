@@ -12,11 +12,13 @@ logging:
       include_paths:
         - /var/log/webapp/myapp.log
       record_log_file_path: true
+
   processors:
     my-app-processors:
       type: parse_json
       time_key: time
       time_format: "%Y-%m-%dT%H:%M:%S.%L"
+
     move_level_severity:
       type: modify_fields
       fields:
@@ -25,7 +27,8 @@ logging:
           map_values:
             "debug": "DEBUG"
             "info": "INFO"
-            "warn": "WARN"            
+            "warn": "WARNING"
+
   service:
     pipelines:
       default_pipeline:
