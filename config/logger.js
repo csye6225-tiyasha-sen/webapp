@@ -15,10 +15,10 @@ const logger = winston.createLogger({
   transports: [],
 });
 if (process.env.ENV_DEV === "dev") {
-  logger.add(new transports.Console());
+  logger.add(new winston.transports.Console());
 } else {
   logger.add(
-    new transports.File({
+    new winston.transports.File({
       filename: "/var/log/webapp/myapp.log",
     })
   );
