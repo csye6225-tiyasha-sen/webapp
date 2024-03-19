@@ -23,7 +23,7 @@ logging:
       type: modify_fields
       fields:
         severity:
-          move_from: jsonPayload.level
+          move_from: level
           map_values:
             "debug": "DEBUG"
             "info": "INFO"
