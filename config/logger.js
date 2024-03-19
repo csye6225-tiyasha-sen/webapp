@@ -1,11 +1,7 @@
 import winston from "winston";
 
-const { combine, timestamp, label, printf } = winston.format;
+const { combine, timestamp, label, json } = winston.format;
 const CATEGORY = "logger";
-
-const customFormat = printf(({ level, message, label, timestamp }) => {
-  return `${timestamp} [${label}] ${level}: ${message}`;
-});
 
 const logger = winston.createLogger({
   level: "debug",
@@ -14,7 +10,7 @@ const logger = winston.createLogger({
     timestamp({
       format: "YYYY-MM-DDTHH:mm:ss.SSSZ",
     }),
-    customFormat
+    json()
   ),
   transports: [
     new winston.transports.File({
