@@ -1,9 +1,7 @@
 import { v1 as uuidv1 } from "uuid";
 import db from "../config/dbConfig.js";
 //import { checkRoutes } from "./middleware/middleware.js";
-//import { Logger } from "node-json-logger";
-//const logger = new Logger();
-
+import logger from "../config/logger.js";
 import bcrypt from "bcrypt";
 const User = db.userModel;
 
