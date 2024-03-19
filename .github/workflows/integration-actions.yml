@@ -11,6 +11,7 @@ jobs:
       PSQL_USERNAME: ${{ secrets.PSQL_USERNAME }}
       PSQL_PASSWORD: ${{ secrets.PSQL_PASSWORD }}
       PSQL_DATABASE: ${{ secrets.PSQL_DATABASE }}
+      ENV_DEV: "dev"
 
     steps:
       - name: Checkout repo
@@ -33,8 +34,6 @@ jobs:
         run: |
           sudo -u postgres psql -c "CREATE USER ${{ secrets.PSQL_USERNAME }} WITH PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
           sudo -u postgres psql -c "ALTER USER ${{ secrets.PSQL_USERNAME }} PASSWORD '${{ secrets.PSQL_PASSWORD }}';"
-          sudo mkdir -p /var/log/webapp
-          sudo chown -R runner:runner /var/log/webapp
 
       - name: Create database
         run: sudo -u postgres psql -c "CREATE DATABASE ${{secrets.PSQL_DATABASE}};"

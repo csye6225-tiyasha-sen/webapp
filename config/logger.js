@@ -12,12 +12,15 @@ const logger = winston.createLogger({
     }),
     json()
   ),
-  transports: [
-    new winston.transports.File({
-      filename: "/var/log/webapp/myapp.log",
-    }),
-    new winston.transports.Console(),
-  ],
+  transports: [],
 });
-
+if (process.env.ENV_DEV === "dev") {
+  logger.add(new transports.Console());
+} else {
+  logger.add(
+    new transports.File({
+      filename: "/var/log/webapp/myapp.log",
+    })
+  );
+}
 export default logger;
