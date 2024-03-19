@@ -12,24 +12,25 @@ logging:
       include_paths:
         - /var/log/webapp/myapp.log
       record_log_file_path: true
+  processors:
+    my-app-processors:
+      type: parse_json
+      time_key: time
+      time_format: \"%Y-%m-%dT%H:%M:%S.%L\"
+    move_level_severity:
+      type: modify_fields
+      fields:
+        severity:
+          move_from: jsonPayload.level
+          map_values:
+            \"debug\":\"DEBUG\"
+            \"info\":\"INFO\"
+            \"warn\":\"WARN\"            
   service:
     pipelines:
       default_pipeline:
         receivers: [my-app-receiver]
-metrics:
-  receivers:
-    hostmetrics:
-      type: hostmetrics
-      collection_interval: 60s
-  processors:
-    metrics_filter:
-      type: exclude_metrics
-      metrics_pattern: []
-  service:
-    pipelines:
-      default_pipeline:
-        receivers: [hostmetrics]
-        processors: [metrics_filter]
+        processors: [my-app-processors, move_level_severity]
 "
 
 CONFIG_FILE="/etc/google-cloud-ops-agent/config.yaml"
