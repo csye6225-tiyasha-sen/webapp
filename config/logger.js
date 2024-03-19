@@ -1,20 +1,18 @@
 import winston from "winston";
-import { createLogger, format, transports } from "winston";
-import appRoot from "app-root-path";
 
-const { combine, timestamp, label, printf } = format;
+const { combine, timestamp, label, printf } = winston.format;
 const CATEGORY = "logger";
 
 const customFormat = printf(({ level, message, label, timestamp }) => {
   return `${timestamp} [${label}] ${level}: ${message}`;
 });
 
-const logger = createLogger({
+const logger = winston.createLogger({
   level: "debug",
   format: combine(
     label({ label: CATEGORY }),
-    format.timestamp({
-      format: "YYYY-MM-DD HH:mm:ss",
+    timestamp({
+      format: "YYYY-MM-DDTHH:mm:ss.SSSZ",
     }),
     customFormat
   ),
@@ -22,7 +20,7 @@ const logger = createLogger({
     new winston.transports.File({
       filename: "/var/log/webapp/myapp.log",
     }),
-    new transports.Console(),
+    new winston.transports.Console(),
   ],
 });
 
