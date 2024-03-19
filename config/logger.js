@@ -1,4 +1,7 @@
 import winston from "winston";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const { combine, timestamp, label, json } = winston.format;
 const CATEGORY = "logger";
