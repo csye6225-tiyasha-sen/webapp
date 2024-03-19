@@ -16,14 +16,14 @@ logging:
   processors:
     my-app-processors:
       type: parse_json
-      time_key: time
+      time_key: timestamp
       time_format: "%Y-%m-%dT%H:%M:%S.%L"
 
     move_level_severity:
       type: modify_fields
       fields:
         severity:
-          move_from: jsonPayload.level
+          move_from: level
           map_values:
             "debug": "DEBUG"
             "info": "INFO"
