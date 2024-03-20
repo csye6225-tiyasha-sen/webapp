@@ -10,15 +10,16 @@ export const health = {
       Object.keys(req.query).length != 0 ||
       (res.headers && res.headers["content-length"] > 0)
     ) {
+      logger.error("Please provide a valid format!");
       return res.status(400).end();
     }
     try {
       await db.sequelize.authenticate();
-      logger.info("database authenticated!");
+      logger.info("Database authenticated!");
       res.status(200).end();
     } catch (error) {
-      res.status(503).end();
       logger.error("Error in connecting database!");
+      res.status(503).end();
       //console.error(`errors: ${error}`);
     }
   },
