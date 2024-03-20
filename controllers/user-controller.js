@@ -6,10 +6,13 @@ import bcrypt from "bcrypt";
 const User = db.userModel;
 
 export const userCreate = async (req, res) => {
+  logger.debug("Inside user creation.");
   if (Object.keys(req.query).length != 0) {
-    return res.status(400).end();
+    logger.error("The URL is not valid!");
+    return res.status(400).send();
   }
   if (req.body.id || req.body.account_created || req.body.account_updated) {
+    logger.error("The fields provided are not allowed!");
     return res.status(400).send();
   }
   res.header("Cache-Control", "no-cache");
@@ -26,6 +29,8 @@ export const userCreate = async (req, res) => {
     const validateEmail =
       /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/;
     if (!validateEmail.test(req.body.username)) {
+      logger.warn("Please use a valid email");
+      logger.error("Please use a valid email");
       return res.status(400).send(
         json({
           message:
@@ -54,21 +59,26 @@ export const userCreate = async (req, res) => {
       account_updated: userRes.account_updated,
     };
     //const userr = await User.create(info);
-    logger.info("User created successfully!");
+    logger.info("User " + userRes.username + " created successfully!");
     res.status(201).send(userData);
   } catch (err) {
     logger.error(err.message);
     res.status(400).send();
   }
+
+  logger.debug("Exit of user creation.");
 };
 
 export const userGetByUsername = async (req, res, next) => {
+  logger.debug("Inside user get functionality.");
   const userAttri = await getUsername(req.user.username);
   if (Object.keys(req.query).length != 0 || req.headers["content-length"] > 0) {
     return res.status(400).end();
   }
   if (userAttri) {
-    logger.info("User updated successfully!");
+    logger.info(
+      "User " + userAttri.dataValues.username + " updated successfully!"
+    );
     res.status(200).send({
       id: userAttri.dataValues.id,
       first_name: userAttri.dataValues.first_name,
@@ -78,16 +88,19 @@ export const userGetByUsername = async (req, res, next) => {
       account_updated: userAttri.dataValues.account_updated,
     });
   } else {
+    logger.error("The user details cannot be fetched due to wrong information");
     res.status(400).send();
   }
 };
 
 export const userUpdateByUsername = async (req, res, next) => {
+  logger.debug("Inside user update funtionality.");
   if (Object.keys(req.query).length != 0) {
     return res.status(400).end();
   }
   if (!req.body.first_name || !req.body.last_name || !req.body.password) {
     logger.error("Invalid request body");
+    logger.warn("Enter all the required fields!");
     return res.status(400).send({
       message: "Enter all the required fields!",
     });
@@ -95,6 +108,7 @@ export const userUpdateByUsername = async (req, res, next) => {
 
   try {
     if (req.body.username) {
+      logger.warn("Update of User Id is not allowed!");
       return res.status(400).send({
         message: "Update of User Id is not allowed!",
       });
@@ -118,9 +132,10 @@ export const userUpdateByUsername = async (req, res, next) => {
       res.status(400).send();
     }
   } catch (err) {
-    console.error("Error Updating the user", err);
+    logger.error(err.message);
     res.status(400).send();
   }
+  logger.debug("Exit of user update funtionality.");
 };
 
 async function getUsername(username) {
