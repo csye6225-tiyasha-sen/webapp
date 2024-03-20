@@ -8,13 +8,7 @@ const CATEGORY = "logger";
 
 const logger = winston.createLogger({
   level: "debug",
-  format: combine(
-    label({ label: CATEGORY }),
-    timestamp({
-      format: "YYYY-MM-DDTHH:mm:ss.SSSZ",
-    }),
-    json()
-  ),
+  format: combine(label({ label: CATEGORY }), timestamp(), json()),
   transports: [],
 });
 if (process.env.ENV_DEV === "dev") {
