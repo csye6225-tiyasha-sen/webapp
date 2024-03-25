@@ -3,7 +3,33 @@ import db from "../config/dbConfig.js";
 //import { checkRoutes } from "./middleware/middleware.js";
 import logger from "../config/logger.js";
 import bcrypt from "bcrypt";
+import publishMessage from "../config/pubsub.js";
+import jwt from "jsonwebtoken";
 const User = db.userModel;
+
+export const verifyToken = async (req, res) => {
+  const token = req.query.tokenValue;
+
+  // Verifying
+  try {
+    const decoded = await jwt.verify(token, "authentication_key");
+    //const newEmail = decoded.email;
+    await User.update(
+      { verifiedFlag: true },
+      {
+        where: { username: decoded.email },
+      }
+    );
+    return res.status(200).send("Email verifified successfully");
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .send(
+        "Email verification failed,possibly the link is invalid or expired"
+      );
+  }
+};
 
 export const userCreate = async (req, res) => {
   logger.debug("Inside user creation.");
@@ -58,6 +84,16 @@ export const userCreate = async (req, res) => {
       account_created: userRes.account_created,
       account_updated: userRes.account_updated,
     };
+    const token = jwt.sign({ email: userRes.username }, "authentication_key", {
+      expiresIn: "2m",
+    });
+
+    console.log("Token:", token);
+    const userPublish = {
+      username: userRes.username,
+      tokenValue: token,
+    };
+    await publishMessage(userPublish);
     //const userr = await User.create(info);
     logger.info("User " + userRes.username + " created successfully!");
     res.status(201).send(userData);
@@ -76,6 +112,9 @@ export const userGetByUsername = async (req, res, next) => {
     return res.status(400).end();
   }
   if (userAttri) {
+    if (!userAttri.verifiedFlag) {
+      return res.status(400).send();
+    }
     logger.info(
       "User " + userAttri.dataValues.username + " updated successfully!"
     );
@@ -107,6 +146,10 @@ export const userUpdateByUsername = async (req, res, next) => {
   }
 
   try {
+    const userAttri = await getUsername(req.user.username);
+    if (!userAttri.verifiedFlag) {
+      return res.status(400).send();
+    }
     if (req.body.username) {
       logger.warn("Update of User Id is not allowed!");
       return res.status(400).send({
