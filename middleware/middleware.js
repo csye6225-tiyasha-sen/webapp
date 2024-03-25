@@ -5,6 +5,7 @@ const routesAllowed = {
   "/healthz": ["GET"],
   "/v1/user": ["POST"],
   "/v1/user/self": ["PUT", "GET"],
+  "/verifyUser": ["GET"],
 };
 
 export const checkReqMethods = (req, res, next) => {

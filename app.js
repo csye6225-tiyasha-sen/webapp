@@ -4,6 +4,7 @@ import routes from "./routes/health-route.js";
 import dotenv from "dotenv";
 //import { checkRoutes } from "./middleware/middleware.js";
 import userRoutes from "./routes/user-routes.js";
+import { verifyToken } from "./controllers/user-controller.js";
 import { checkReqMethods } from "./middleware/middleware.js";
 import {
   checkReqMethodsForUser,
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 app.use("/healthz", checkReqMethods, routes);
 app.use(checkReqMethodsForUser);
 app.use("/v1", userRoutes);
+app.use("/verifyUser", verifyToken);
 
 dotenv.config();
 

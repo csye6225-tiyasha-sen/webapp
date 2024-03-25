@@ -1,8 +1,8 @@
 name: packer-actions
 on:
   pull_request:
-    types:
-      - closed
+    # types:
+    #   - closed
 
 jobs:
   packer-build:

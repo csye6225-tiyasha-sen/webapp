@@ -38,6 +38,12 @@ export const userModelFunction = (sequelize, Sequelize) => {
         allowNull: false,
         readOnly: true,
       },
+      verifiedFlag: {
+        type: Sequelize.BOOLEAN,
+        alter: true,
+        allowNull: false,
+        defaultValue: false,
+      },
     },
     {
       hooks: {

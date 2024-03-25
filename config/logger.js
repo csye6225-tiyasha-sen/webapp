@@ -16,7 +16,7 @@ if (process.env.ENV_DEV === "dev") {
 } else {
   logger.add(
     new winston.transports.File({
-      filename: "/var/log/webapp/myapp.log",
+      filename: "./myapp.log",
     })
   );
 }
