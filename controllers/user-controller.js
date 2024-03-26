@@ -4,32 +4,8 @@ import db from "../config/dbConfig.js";
 import logger from "../config/logger.js";
 import bcrypt from "bcrypt";
 import publishMessage from "../config/pubsub.js";
-import jwt from "jsonwebtoken";
+
 const User = db.userModel;
-
-export const verifyToken = async (req, res) => {
-  const token = req.query.tokenValue;
-
-  // Verifying
-  try {
-    const decoded = await jwt.verify(token, "authentication_key");
-    //const newEmail = decoded.email;
-    await User.update(
-      { verifiedFlag: true },
-      {
-        where: { username: decoded.email },
-      }
-    );
-    return res.status(200).send("Email verifified successfully");
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(400)
-      .send(
-        "Email verification failed,possibly the link is invalid or expired"
-      );
-  }
-};
 
 export const userCreate = async (req, res) => {
   logger.debug("Inside user creation.");
@@ -84,14 +60,15 @@ export const userCreate = async (req, res) => {
       account_created: userRes.account_created,
       account_updated: userRes.account_updated,
     };
-    const token = jwt.sign({ email: userRes.username }, "authentication_key", {
-      expiresIn: "2m",
-    });
-
-    console.log("Token:", token);
+    const token = uuidv1();
+    logger.info("Token::::", token);
     const userPublish = {
       username: userRes.username,
-      tokenValue: token,
+      tokenGenerated: token,
+      PSQL_DATABASE: process.env.PSQL_DATABASE,
+      PSQL_USERNAME: process.env.PSQL_USERNAME,
+      PSQL_PASSWORD: process.env.PSQL_PASSWORD,
+      PSQL_HOSTNAME: process.env.PSQL_HOSTNAME,
     };
     await publishMessage(userPublish);
     //const userr = await User.create(info);
@@ -179,6 +156,39 @@ export const userUpdateByUsername = async (req, res, next) => {
     res.status(400).send();
   }
   logger.debug("Exit of user update funtionality.");
+};
+
+export const verifyToken = async (req, res) => {
+  const token = req.query.tokenValue;
+  try {
+    //const newEmail = decoded.email;
+    const userObject = await User.findOne({
+      where: { tokenGenerated: token },
+    });
+    const tokenTime = userObject.emailSentTime;
+    console.log("tokenTime", tokenTime);
+    const currentTime = new Date().getTime();
+    console.log("currentTime", currentTime);
+    const tokenExpiry = 2 * 60 * 1000;
+    const tokenExpirationTime = new Date(tokenTime.getTime() + tokenExpiry);
+    console.log("tokenExpirationTime", tokenExpirationTime);
+
+    if (userObject.tokenGenerated != token) {
+      throw new Error("Token does not match with email id");
+    }
+    if (currentTime > tokenExpirationTime) {
+      // Token has expired
+      throw new Error("Token has expired");
+    }
+    await User.update(
+      { verifiedFlag: true },
+      { where: { tokenGenerated: token } }
+    );
+    return res.status(200).send("Email verifified successfully");
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("Email verification failed,link is invalid!");
+  }
 };
 
 async function getUsername(username) {

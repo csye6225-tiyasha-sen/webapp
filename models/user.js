@@ -41,8 +41,15 @@ export const userModelFunction = (sequelize, Sequelize) => {
       verifiedFlag: {
         type: Sequelize.BOOLEAN,
         alter: true,
-        allowNull: false,
         defaultValue: false,
+      },
+      tokenGenerated: {
+        type: Sequelize.STRING,
+        alter: true,
+      },
+      emailSentTime: {
+        type: Sequelize.DATE,
+        alter: true,
       },
     },
     {
