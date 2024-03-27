@@ -174,7 +174,11 @@ export const verifyToken = async (req, res) => {
     }
     if (currentTime > tokenExpirationTime) {
       // Token has expired
-      throw new Error("Token has expired");
+      return res
+        .status(400)
+        .send(
+          "Token has expired. The verification token stays active for 2 minutes"
+        );
     }
     await User.update(
       { verifiedFlag: true },
@@ -182,7 +186,7 @@ export const verifyToken = async (req, res) => {
     );
     return res.status(200).send("Email verified successfully");
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.status(400).send("Email verification failed!");
   }
 };
