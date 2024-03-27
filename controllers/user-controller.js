@@ -65,10 +65,6 @@ export const userCreate = async (req, res) => {
     const userPublish = {
       username: userRes.username,
       tokenGenerated: token,
-      PSQL_DATABASE: process.env.PSQL_DATABASE,
-      PSQL_USERNAME: process.env.PSQL_USERNAME,
-      PSQL_PASSWORD: process.env.PSQL_PASSWORD,
-      PSQL_HOSTNAME: process.env.PSQL_HOSTNAME,
     };
     await publishMessage(userPublish);
     //const userr = await User.create(info);
