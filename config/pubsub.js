@@ -6,7 +6,7 @@ const publishMessage = async (payload) => {
   const dataBuffer = Buffer.from(JSON.stringify(payload));
   try {
     const messageId = await pubSubClient
-      .topic("test-topic")
+      .topic("verify_email")
       .publishMessage({ data: dataBuffer });
     console.log(`Message ${messageId} published.`);
     return messageId;
