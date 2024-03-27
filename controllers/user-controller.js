@@ -180,10 +180,10 @@ export const verifyToken = async (req, res) => {
       { verifiedFlag: true },
       { where: { tokenGenerated: token } }
     );
-    return res.status(200).send("Email verifified successfully");
+    return res.status(200).send("Email verified successfully");
   } catch (error) {
     console.log(error);
-    return res.status(400).send("Email verification failed,link is invalid!");
+    return res.status(400).send("Email verification failed!");
   }
 };
 
