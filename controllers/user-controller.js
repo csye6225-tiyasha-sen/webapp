@@ -86,7 +86,7 @@ export const userGetByUsername = async (req, res, next) => {
   }
   if (userAttri) {
     if (!userAttri.verifiedFlag) {
-      return res.status(400).send();
+      return res.status(403).send();
     }
     logger.info(
       "User " + userAttri.dataValues.username + " updated successfully!"
@@ -121,7 +121,7 @@ export const userUpdateByUsername = async (req, res, next) => {
   try {
     const userAttri = await getUsername(req.user.username);
     if (!userAttri.verifiedFlag) {
-      return res.status(400).send();
+      return res.status(403).send();
     }
     if (req.body.username) {
       logger.warn("Update of User Id is not allowed!");
