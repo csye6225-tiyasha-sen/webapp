@@ -9,12 +9,12 @@ packer {
 
 variable "image_name" {
   type    = string
-  default = "image-dev-new-temp"
+  default = "image"
 }
 
 variable "project_id" {
   type    = string
-  default = "csye-6225-dev-414704"
+  default = "csye-dev"
 }
 
 source "googlecompute" "sharedvpc-example" {
