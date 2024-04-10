@@ -7,9 +7,17 @@ packer {
   }
 }
 
+variable "image_name" {
+  type    = string
+}
+
+variable "project_id" {
+  type    = string
+}
+
 source "googlecompute" "sharedvpc-example" {
-  image_name          = "image-dev-new-temp"
-  project_id          = "csye-6225-dev-414704"
+  image_name          = var.image_name
+  project_id          = var.project_id
   source_image_family = "centos-stream-8"
   subnetwork          = "default"
   network_project_id  = "csye-6225-dev-414704"
