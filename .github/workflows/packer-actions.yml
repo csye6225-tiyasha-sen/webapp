@@ -33,7 +33,7 @@ jobs:
         run: packer init ./gcp.pkr.hcl
 
       - name: Packer build
-        run: packer build ./gcp.pkr.hcl
+        run: packer build -var "image_name=${{ secrets.CUSTOM_IMAGE_NAME }}" -var "project_id=${{ secrets.PROJECT_ID }}" ./gcp.pkr.hcl
 
       - name: Create instance template
         run: |
