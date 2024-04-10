@@ -8,7 +8,7 @@ packer {
 }
 
 source "googlecompute" "sharedvpc-example" {
-  image_name          = "image-dev-new"
+  image_name          = "image-dev-new-temp"
   project_id          = "csye-6225-dev-414704"
   source_image_family = "centos-stream-8"
   subnetwork          = "default"
