@@ -9,12 +9,12 @@ packer {
 
 variable "image_name" {
   type    = string
-  default = "image"
+  default = "image-dev-new-temp"
 }
 
 variable "project_id" {
   type    = string
-  default = "csye-dev"
+  default = "csye-6225-dev-414704"
 }
 
 source "googlecompute" "sharedvpc-example" {
@@ -22,7 +22,7 @@ source "googlecompute" "sharedvpc-example" {
   project_id          = var.project_id
   source_image_family = "centos-stream-8"
   subnetwork          = "default"
-  network_project_id  = var.project_id
+  network_project_id  = "csye-6225-dev-414704"
   ssh_username        = "tiyashasen_net"
   zone                = "us-east1-c"
   image_licenses      = ["projects/vm-options/global/licenses/enable-vmx"]
