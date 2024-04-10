@@ -34,9 +34,3 @@ jobs:
 
       - name: Packer build
         run: packer build ./gcp.pkr.hcl
-
-      # - name: Create instance template
-      #   run: gcloud compute instance-templates create INSTANCE_TEMPLATE_NAME \
-      #        --source-instance=SOURCE_INSTANCE \
-      #        --source-instance-zone=SOURCE_INSTANCE_ZONE \
-      #        --instance-template-region=REGION
