@@ -29,6 +29,9 @@ jobs:
         run: "packer init ./gcp.pkr.hcl"
 
       - name: Run `packer fmt`
+        env:
+          image_name: ${{ secrets.CUSTOM_IMAGE_NAME }}
+          project_id: ${{ secrets.PROJECT_ID }}
         id: fmt
         run: packer fmt -check -diff ./gcp.pkr.hcl
 
