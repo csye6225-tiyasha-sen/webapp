@@ -74,28 +74,28 @@ jobs:
 
       - name: Create instance template
         run: |
-            gcloud compute instance-templates create ${{ secrets.INSTANCE_TEMPLATE }} \
-            --source-instance="${{ secrets.SOURCE_INSTANCE }}" \
-            --source-instance-zone="${{ secrets.SOURCE_INSTANCE_ZONE }}" \
-            --instance-template-region="${{ secrets.INSTANCE_TEMPLATE_REGION }}" \
-            --boot-disk-size=${{ secrets.BOOT_DISK_SIZE }} \
-            --configure-disk=device-name="${{ secrets.DEVICE_NAME }}",instantiate-from=custom-image,custom-image="projects/${{ secrets.PROJECT_ID }}/global/images/${{ secrets.CUSTOM_IMAGE_NAME }}"
+          gcloud compute instance-templates create ${{ secrets.INSTANCE_TEMPLATE }} \
+          --source-instance="${{ secrets.SOURCE_INSTANCE }}" \
+          --source-instance-zone="${{ secrets.SOURCE_INSTANCE_ZONE }}" \
+          --instance-template-region="${{ secrets.INSTANCE_TEMPLATE_REGION }}" \
+          --boot-disk-size=${{ secrets.BOOT_DISK_SIZE }} \
+          --configure-disk=device-name="${{ secrets.DEVICE_NAME }}",instantiate-from=custom-image,custom-image="projects/${{ secrets.PROJECT_ID }}/global/images/${{ secrets.CUSTOM_IMAGE_NAME }}"
 
       - name: Configuration of managed instance group
         run: |
-            gcloud compute instance-groups managed set-instance-template ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
-            --template="projects/${{ secrets.PROJECT_ID }}/regions/${{ secrets.INSTANCE_TEMPLATE_REGION }}/instanceTemplates/${{ secrets.INSTANCE_TEMPLATE }}" \
-            --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
+          gcloud compute instance-groups managed set-instance-template ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
+          --template="projects/${{ secrets.PROJECT_ID }}/regions/${{ secrets.INSTANCE_TEMPLATE_REGION }}/instanceTemplates/${{ secrets.INSTANCE_TEMPLATE }}" \
+          --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
 
-        - name: Starting of a basic rolling update
-          run: |
-            gcloud compute instance-groups managed rolling-action start-update ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
-            --version template="projects/${{ secrets.PROJECT_ID }}/regions/${{ secrets.INSTANCE_TEMPLATE_REGION }}/instanceTemplates/${{ secrets.INSTANCE_TEMPLATE }}" \
-            --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
+      - name: Starting of a basic rolling update
+        run: |
+          gcloud compute instance-groups managed rolling-action start-update ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
+          --version template="projects/${{ secrets.PROJECT_ID }}/regions/${{ secrets.INSTANCE_TEMPLATE_REGION }}/instanceTemplates/${{ secrets.INSTANCE_TEMPLATE }}" \
+          --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
 
-        - name: To check status of GitHub Actions workflow matches the status of instance
-          run: |
-            gcloud compute instance-groups managed wait-until ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
-            --version-target-reached \
-            --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
+      - name: To check status of GitHub Actions workflow matches the status of instance
+        run: |
+          gcloud compute instance-groups managed wait-until ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
+          --version-target-reached \
+          --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
 
