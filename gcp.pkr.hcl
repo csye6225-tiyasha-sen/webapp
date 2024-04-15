@@ -9,7 +9,7 @@ packer {
 
 variable "image_name" {
   type    = string
-  default = "image-dev-new-temp"
+  default = "image-dev-new"
 }
 
 variable "project_id" {
