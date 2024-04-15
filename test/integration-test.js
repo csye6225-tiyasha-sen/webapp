@@ -9,9 +9,9 @@ before((done) => {
 });
 
 describe("Validate if account exists", function () {
-  it("POST /v1/user - Create an account and respond with JSON", function () {
+  it("POST /v2/user - Create an account and respond with JSON", function () {
     request(app)
-      .post("/v1/user")
+      .post("/v2/user")
       .send({
         first_name: "test",
         last_name: "Sen",
@@ -26,18 +26,18 @@ describe("Validate if account exists", function () {
 
   //Comments for review today
 
-  it("GET /v1/user/self - Validate the created account exists", function () {
+  it("GET /v2/user/self - Validate the created account exists", function () {
     request(app)
-      .get("/v1/user/self")
+      .get("/v2/user/self")
       .auth("ti.seeer@northeastern.edu", "Ti123")
       .expect(200);
   });
 });
 
 describe("Validate if account exists", function () {
-  it("PUT /v1/user - Create an account and respond with JSON", function () {
+  it("PUT /v2/user - Create an account and respond with JSON", function () {
     request(app)
-      .put("/v1/user/self")
+      .put("/v2/user/self")
       .send({
         first_name: "testt",
         last_name: "Sen",
@@ -49,9 +49,9 @@ describe("Validate if account exists", function () {
       .expect(204);
   });
 
-  it("GET /v1/user/self - Validate the account got updated", function () {
+  it("GET /v2/user/self - Validate the account got updated", function () {
     request(app)
-      .get("/v1/user/self")
+      .get("/v2/user/self")
       .auth("ti.seeer@northeastern.edu", "Tiyasha123")
       .expect(200);
   });

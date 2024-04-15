@@ -4,7 +4,7 @@ APIs available in this service:
 
 //Check if the application has connectivity to the database
 
-GET /healthz point
+GET /healthz points
 
 //Authenticated operations for inserting user details
 
