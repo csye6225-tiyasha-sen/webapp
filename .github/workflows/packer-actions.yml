@@ -48,7 +48,7 @@ jobs:
             --metadata-from-file=startup-script=startup-script.sh \
             --service-account=${{ secrets.INSTANCE_SERVICE_ACCOUNT }} \
             --scopes=https://www.googleapis.com/auth/cloud-platform \
-            --image=projects/cloud-computing-dev/global/images/${{secrets.CUSTOM_IMAGE_NAME }} \
+            --image=projects/${{ secrets.PROJECT_ID }}/global/images/${{secrets.CUSTOM_IMAGE_NAME }} \
             --boot-disk-size=100 \
             --boot-disk-type=pd-ssd \
             --boot-disk-auto-delete \
