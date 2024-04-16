@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 //app.use(checkRoutes);
 app.use("/healthz", checkReqMethods, routes);
 app.use(checkReqMethodsForUser);
-app.use("/v1", userRoutes);
+app.use("/v2", userRoutes);
 app.use("/verifyUser", verifyToken);
 
 dotenv.config();
