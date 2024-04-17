@@ -35,43 +35,43 @@ jobs:
       - name: Packer build
         run: packer build -var "image_name=${{ secrets.CUSTOM_IMAGE_NAME }}" -var "project_id=${{ secrets.PROJECT_ID }}" ./gcp.pkr.hcl
 
-      # - name: Create instance template
-      #   run: |
-      #     echo -e "${{ secrets.INSTANCE_STARTUP_SCRIPT }}" > startup-script.sh
-      #     gcloud compute instance-templates create ${{ secrets.INSTANCE_TEMPLATE }} \
-      #       --region=${{ secrets.INSTANCE_TEMPLATE_REGION }} \
-      #       --instance-template-region=${{ secrets.INSTANCE_TEMPLATE_REGION }} \
-      #       --machine-type=custom-4-4096 \
-      #       --tags=webapp-dev \
-      #       --network=${{secrets.NETWORK_NAME}} \
-      #       --subnet=${{secrets.SUBNET_NAME}} \
-      #       --metadata-from-file=startup-script=startup-script.sh \
-      #       --service-account=${{ secrets.INSTANCE_SERVICE_ACCOUNT }} \
-      #       --scopes=https://www.googleapis.com/auth/cloud-platform \
-      #       --image=projects/${{ secrets.PROJECT_ID }}/global/images/${{secrets.CUSTOM_IMAGE_NAME }} \
-      #       --boot-disk-size=100 \
-      #       --boot-disk-type=pd-ssd \
-      #       --boot-disk-auto-delete \
-      #       --boot-disk-kms-key=projects/${{ secrets.PROJECT_ID }}/locations/${{ secrets.INSTANCE_TEMPLATE_REGION }}/keyRings/${{ secrets.KEYRING }}/cryptoKeys/cloud-virtual-machine/cryptoKeyVersions/1
-      #     if [ $? -ne 0 ]; then
-      #       echo "Failed to create instance template."
-      #       exit 1
-      #     fi
+      - name: Create instance template
+        run: |
+          echo -e "${{ secrets.INSTANCE_STARTUP_SCRIPT }}" > startup-script.sh
+          gcloud compute instance-templates create ${{ secrets.INSTANCE_TEMPLATE }} \
+            --region=${{ secrets.INSTANCE_TEMPLATE_REGION }} \
+            --instance-template-region=${{ secrets.INSTANCE_TEMPLATE_REGION }} \
+            --machine-type=custom-4-4096 \
+            --tags=webapp-dev \
+            --network=${{secrets.NETWORK_NAME}} \
+            --subnet=${{secrets.SUBNET_NAME}} \
+            --metadata-from-file=startup-script=startup-script.sh \
+            --service-account=${{ secrets.INSTANCE_SERVICE_ACCOUNT }} \
+            --scopes=https://www.googleapis.com/auth/cloud-platform \
+            --image=projects/${{ secrets.PROJECT_ID }}/global/images/${{secrets.CUSTOM_IMAGE_NAME }} \
+            --boot-disk-size=100 \
+            --boot-disk-type=pd-ssd \
+            --boot-disk-auto-delete \
+            --boot-disk-kms-key=projects/${{ secrets.PROJECT_ID }}/locations/${{ secrets.INSTANCE_TEMPLATE_REGION }}/keyRings/${{ secrets.KEYRING }}/cryptoKeys/cloud-virtual-machine/cryptoKeyVersions/1
+          if [ $? -ne 0 ]; then
+            echo "Failed to create instance template."
+            exit 1
+          fi
 
-      # - name: Configuration of managed instance group
-      #   run: |
-      #     gcloud compute instance-groups managed set-instance-template ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
-      #     --template="projects/${{ secrets.PROJECT_ID }}/regions/${{ secrets.INSTANCE_TEMPLATE_REGION }}/instanceTemplates/${{ secrets.INSTANCE_TEMPLATE }}" \
-      #     --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
+      - name: Configuration of managed instance group
+        run: |
+          gcloud compute instance-groups managed set-instance-template ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
+          --template="projects/${{ secrets.PROJECT_ID }}/regions/${{ secrets.INSTANCE_TEMPLATE_REGION }}/instanceTemplates/${{ secrets.INSTANCE_TEMPLATE }}" \
+          --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
 
-      # - name: Starting of a basic rolling update
-      #   run: |
-      #     gcloud compute instance-groups managed rolling-action start-update ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
-      #     --version template="projects/${{ secrets.PROJECT_ID }}/regions/${{ secrets.INSTANCE_TEMPLATE_REGION }}/instanceTemplates/${{ secrets.INSTANCE_TEMPLATE }}" \
-      #     --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
+      - name: Starting of a basic rolling update
+        run: |
+          gcloud compute instance-groups managed rolling-action start-update ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
+          --version template="projects/${{ secrets.PROJECT_ID }}/regions/${{ secrets.INSTANCE_TEMPLATE_REGION }}/instanceTemplates/${{ secrets.INSTANCE_TEMPLATE }}" \
+          --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
 
-      # - name: To check status of GitHub Actions workflow matches the status of instance
-      #   run: |
-      #     gcloud compute instance-groups managed wait-until ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
-      #     --version-target-reached \
-      #     --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
+      - name: To check status of GitHub Actions workflow matches the status of instance
+        run: |
+          gcloud compute instance-groups managed wait-until ${{ secrets.MANAGED_INSTANCE_GROUP_NAME }} \
+          --version-target-reached \
+          --region="${{ secrets.INSTANCE_TEMPLATE_REGION }}"
