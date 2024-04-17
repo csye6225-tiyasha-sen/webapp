@@ -69,10 +69,10 @@ export const userCreate = async (req, res) => {
     await publishMessage(userPublish);
     //const userr = await User.create(info);
     logger.info("User " + userRes.username + " created successfully!");
-    res.status(201).send(userData);
+    return res.status(201).send(userData);
   } catch (err) {
     logger.error(err.message);
-    res.status(400).send();
+    return res.status(400).send();
   }
 
   logger.debug("Exit of user creation.");
