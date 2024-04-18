@@ -1,14 +1,14 @@
 name: packer-actions
 on:
   pull_request:
-    #types:
-    #  - closed
+    types:
+      - closed
 
 jobs:
   packer-build:
     runs-on: ubuntu-latest
 
-    # if: ${{github.event.pull_request.merged==true}}
+    if: ${{github.event.pull_request.merged==true}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

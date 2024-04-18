@@ -3,8 +3,8 @@ import db from "../config/dbConfig.js";
 
 const routesAllowed = {
   "/healthz": ["GET"],
-  "/v1/user": ["POST"],
-  "/v1/user/self": ["PUT", "GET"],
+  "/v6/user": ["POST"],
+  "/v6/user/self": ["PUT", "GET"],
   "/verifyUser": ["GET"],
 };
 
